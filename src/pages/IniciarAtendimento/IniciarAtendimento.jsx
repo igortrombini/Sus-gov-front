@@ -11,8 +11,10 @@ import {
   Button,
   PatientDetails,
   DetailRow,
+  ActionButtonGroup,
   ActionButton
 } from './IniciarAtendimento.styles';
+import { FaKey, FaPrint } from 'react-icons/fa';
 
 const IniciarAtendimento = () => {
   const [nomeCompleto, setNomeCompleto] = useState('');
@@ -20,6 +22,7 @@ const IniciarAtendimento = () => {
   const [cns, setCns] = useState('');
   const [paciente, setPaciente] = useState(null);
   const [buscaFeita, setBuscaFeita] = useState(false);
+  const [senhaGerada, setSenhaGerada] = useState('');
 
   const handleBuscar = (e) => {
     e.preventDefault();
@@ -46,6 +49,17 @@ const IniciarAtendimento = () => {
     };
     setPaciente(dadosPaciente);
     setBuscaFeita(true);
+  };
+
+  const handleGerarSenha = () => {
+    // Lógica para gerar senha
+    const novaSenha = `A${Math.floor(Math.random() * 10000)}`; // Exemplo de geração de senha
+    setSenhaGerada(novaSenha);
+  };
+
+  const handleImprimirSenha = () => {
+    // Lógica para imprimir senha
+    alert(`Imprimindo senha: ${senhaGerada}`);
   };
 
   return (
@@ -103,7 +117,20 @@ const IniciarAtendimento = () => {
                 <label>Data de Cadastro:</label>
                 <span>{paciente.dataCadastro}</span>
               </DetailRow>
-              <ActionButton className="br-button primary">Gerar Senha para Triagem</ActionButton>
+              {senhaGerada && (
+                <DetailRow>
+                  <label>Senha Gerada:</label>
+                  <span>{senhaGerada}</span>
+                </DetailRow>
+              )}
+              <ActionButtonGroup>
+                <ActionButton onClick={handleGerarSenha} className="br-button primary">
+                  <FaKey style={{ marginRight: '0.5rem' }} /> Gerar Senha para Triagem
+                </ActionButton>
+                <ActionButton onClick={handleImprimirSenha} className="br-button primary">
+                  <FaPrint style={{ marginRight: '0.5rem' }} /> Imprimir Senha
+                </ActionButton>
+              </ActionButtonGroup>
             </PatientDetails>
           ) : (
             <Form onSubmit={handleBuscar}>

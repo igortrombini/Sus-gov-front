@@ -61,10 +61,13 @@ export const Button = styled.button`
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #007bff; /* Azul padrão */
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Azul mais escuro para hover */
   }
 `;
 
@@ -89,6 +92,15 @@ export const DetailRow = styled.div`
   }
 `;
 
-export const ActionButton = styled(Button)`
+export const ActionButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-top: 2rem;
+`;
+
+export const ActionButton = styled(Button)`
+  flex: 1;
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
 `;
