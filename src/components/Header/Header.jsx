@@ -1,4 +1,5 @@
-import { HeaderContainer, SearchBar, UserIcon } from './Header.styles';
+import React from 'react';
+import { HeaderContainer, SearchBar, UserSection, IconContainer } from './Header.styles';
 
 const Header = () => {
   return (
@@ -9,9 +10,17 @@ const Header = () => {
           <i className="fas fa-search"></i>
         </button>
       </SearchBar>
-      <UserIcon>
-        <i className="fas fa-user-circle"></i>
-      </UserIcon>
+      <UserSection>
+        <IconContainer>
+          <i className="fas fa-headset"></i>
+        </IconContainer>
+        <IconContainer>
+          <i className="fas fa-comment-dots"></i>
+        </IconContainer>
+        <IconContainer>
+          <i className="fas fa-lightbulb"></i>
+        </IconContainer>
+      </UserSection>
     </HeaderContainer>
   );
 };

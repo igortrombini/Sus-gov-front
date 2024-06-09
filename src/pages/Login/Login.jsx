@@ -9,16 +9,17 @@ import {
   Input,
   Button,
   ForgotPassword,
-  RememberMe
+  RememberMe,
+  StyledImage
 } from './Login.styles';
 import { FaUser, FaLock } from 'react-icons/fa';
+import ImageSrc from '../../assets/conta_govbr_v2.jpg'; // Certifique-se de que o caminho da imagem está correto
 
 const Login = () => {
   return (
     <Container>
       <LeftPanel>
-        {/* Adicione sua imagem aqui, se necessário */}
-        <p>Imagem ou outro conteúdo</p>
+        <StyledImage src={ImageSrc} alt="Gov.br" />
       </LeftPanel>
       <RightPanel>
         <LoginBox>

@@ -1,19 +1,14 @@
-// src/pages/Home/Home.styles.js
+// src/pages/NewsPage/NewsPage.styles.js
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  height: 100vh;
-`;
-
-export const MainContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 2rem;
 `;
 
-export const Section = styled.section`
-  padding: 2rem;
+export const NewsSection = styled.section`
   h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;

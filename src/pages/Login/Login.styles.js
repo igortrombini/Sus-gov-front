@@ -3,23 +3,48 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   height: 100vh;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const LeftPanel = styled.div`
-  flex: 1;
+  flex: 1.5; /* Ajuste conforme necessário */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; /* Ajuste para centralizar a imagem */
   background-color: white; /* Fundo branco para a imagem */
   color: black;
+  padding: 0 15rem; /* Ajuste conforme necessário para ter uma borda com o final da tela */
+  @media (max-width: 768px) {
+    flex: none;
+    padding: 1rem;
+  }
+`;
+
+export const StyledImage = styled.img`
+  width: 120%; /* Aumente a largura da imagem conforme necessário */
+  max-width: 1000px; /* Ajuste conforme necessário */
+  height: auto;
+  object-fit: cover; /* Ajusta a imagem para cobrir o contêiner */
+  margin-right: 0; /* Remova o margin-right para alinhar a imagem */
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 600px;
+  }
 `;
 
 export const RightPanel = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-left: 35rem;
+  justify-content: flex-start; /* Ajuste para alinhar o formulário à esquerda */
+  padding-left: 1rem; /* Ajuste conforme necessário */
+  @media (max-width: 768px) {
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 
 export const LoginBox = styled.div`
@@ -29,7 +54,9 @@ export const LoginBox = styled.div`
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   width: 24rem;
   font-family: 'Rawline', sans-serif;
-  margin-right: 2rem; /* Adiciona espaço à direita do LoginBox */
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.h2`
