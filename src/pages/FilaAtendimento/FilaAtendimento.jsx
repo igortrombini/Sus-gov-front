@@ -11,12 +11,13 @@ import {
   Tbody,
   Th,
   Tr,
-  Td
+  Td,
+  Button
 } from './FilaAtendimento.styles';
 import { FilaContext } from '../../context/FilaContext';
 
 const FilaAtendimento = () => {
-  const { fila } = useContext(FilaContext);
+  const { fila, atualizarStatusPaciente } = useContext(FilaContext);
   const [tempoFila, setTempoFila] = useState({});
 
   useEffect(() => {
@@ -28,12 +29,20 @@ const FilaAtendimento = () => {
         const minutos = Math.floor((tempoEspera % 3600) / 60);
         const segundos = tempoEspera % 60;
         novosTempos[paciente.senha] = `${horas}h ${minutos}m ${segundos}s`;
+
+        if (tempoEspera > 1200 && paciente.status === 'Aguardando atendimento') { // 20 minutos = 1200 segundos
+          atualizarStatusPaciente(paciente.senha, 'Em atendimento');
+        }
       });
       setTempoFila(novosTempos);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [fila]);
+  }, [fila, atualizarStatusPaciente]);
+
+  const handleIniciarAtendimento = (senha) => {
+    atualizarStatusPaciente(senha, 'Em atendimento');
+  };
 
   return (
     <Container>
@@ -51,6 +60,8 @@ const FilaAtendimento = () => {
                 <Th>Sala</Th>
                 <Th>Atendente</Th>
                 <Th>Cargo</Th>
+                <Th>Status</Th>
+                <Th>Ações</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -62,6 +73,14 @@ const FilaAtendimento = () => {
                   <Td>Sala 3</Td>
                   <Td>Ana Paula Silva</Td>
                   <Td>Enfermeira</Td>
+                  <Td>{paciente.status}</Td>
+                  <Td>
+                    {paciente.status === 'Aguardando atendimento' && (
+                      <Button onClick={() => handleIniciarAtendimento(paciente.senha)}>
+                        Iniciar Atendimento
+                      </Button>
+                    )}
+                  </Td>
                 </Tr>
               ))}
             </Tbody>

@@ -1,20 +1,29 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import { CardContainer } from './NewsCard.styles';
+import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { Card, CardImage, CardTitle, CardText, CardButton, CardButtonContainer } from './NewsCard.styles';
 
-const NewsCard = ({ title }) => {
-  return (
-    <CardContainer>
-      <h3>{title}</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <div className="image-placeholder">
-        <i className="fas fa-image"></i>
-      </div>
-    </CardContainer>
-  );
-};
+const NewsCard = ({ title, text, image, link }) => (
+  <Card>
+    <CardImage src={image} alt={title} />
+    <Link to={link}>
+      <CardTitle>{title}</CardTitle>
+    </Link>
+    <CardText>{text}</CardText>
+    <CardButtonContainer>
+      <CardButton>
+        Saiba Mais <FaArrowRight />
+      </CardButton>
+    </CardButtonContainer>
+  </Card>
+);
 
 NewsCard.propTypes = {
   title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default NewsCard;

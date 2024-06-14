@@ -47,25 +47,6 @@ const IniciarAtendimento = () => {
   const [isBuscaFeita, setIsBuscaFeita] = useState(false);
   const [senhaGerada, setSenhaGerada] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDadosPaciente((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleAddressChange = (e) => {
-    const { name, value } = e.target;
-    setDadosPaciente((prevState) => ({
-      ...prevState,
-      endereco: {
-        ...prevState.endereco,
-        [name]: value,
-      },
-    }));
-  };
-
   const handleBuscar = (e) => {
     e.preventDefault();
     const paciente = {
@@ -103,7 +84,6 @@ const IniciarAtendimento = () => {
 
   const handleImprimirSenha = () => {
     if (senhaGerada) {
-      // Lógica para imprimir a senha
       alert(`Imprimindo Senha: ${senhaGerada}`);
     } else {
       alert('Primeiro gere uma senha');
@@ -141,12 +121,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="nomeCompleto"
-                  name="nomeCompleto"
                   type="text"
                   value={dadosPaciente.nomeCompleto}
-                  onChange={handleInputChange}
                   placeholder="Insira seu nome completo"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, nomeCompleto: e.target.value })}
                 />
                 <Icon><FaUser /></Icon>
               </div>
@@ -156,12 +135,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="cpf"
-                  name="cpf"
                   type="text"
                   value={dadosPaciente.cpf}
-                  onChange={handleInputChange}
                   placeholder="000.000.000-00"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, cpf: e.target.value })}
                 />
                 <Icon><FaIdCard /></Icon>
               </div>
@@ -171,12 +149,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="rg"
-                  name="rg"
                   type="text"
                   value={dadosPaciente.rg}
-                  onChange={handleInputChange}
                   placeholder="Digite o RG"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, rg: e.target.value })}
                 />
                 <Icon><FaIdCard /></Icon>
               </div>
@@ -186,12 +163,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="dataNascimento"
-                  name="dataNascimento"
                   type="text"
                   value={dadosPaciente.dataNascimento}
-                  onChange={handleInputChange}
                   placeholder="Digite a data de nascimento"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, dataNascimento: e.target.value })}
                 />
                 <Icon><FaCalendar /></Icon>
               </div>
@@ -201,12 +177,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="certidaoNascimento"
-                  name="certidaoNascimento"
                   type="text"
                   value={dadosPaciente.certidaoNascimento}
-                  onChange={handleInputChange}
                   placeholder="Digite a certidão de nascimento"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, certidaoNascimento: e.target.value })}
                 />
                 <Icon><FaIdCard /></Icon>
               </div>
@@ -216,12 +191,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="estadoCivil"
-                  name="estadoCivil"
                   type="text"
                   value={dadosPaciente.estadoCivil}
-                  onChange={handleInputChange}
                   placeholder="Digite o estado civil"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, estadoCivil: e.target.value })}
                 />
                 <Icon><FaUser /></Icon>
               </div>
@@ -235,8 +209,8 @@ const IniciarAtendimento = () => {
                     name="sexo"
                     value="Masculino"
                     checked={dadosPaciente.sexo === 'Masculino'}
-                    onChange={handleInputChange}
                     disabled={!isBuscaFeita}
+                    onChange={() => setDadosPaciente({ ...dadosPaciente, sexo: 'Masculino' })}
                   />
                   Masculino
                 </label>
@@ -246,8 +220,8 @@ const IniciarAtendimento = () => {
                     name="sexo"
                     value="Feminino"
                     checked={dadosPaciente.sexo === 'Feminino'}
-                    onChange={handleInputChange}
                     disabled={!isBuscaFeita}
+                    onChange={() => setDadosPaciente({ ...dadosPaciente, sexo: 'Feminino' })}
                   />
                   Feminino
                 </label>
@@ -261,12 +235,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="logradouro"
-                  name="logradouro"
                   type="text"
                   value={dadosPaciente.endereco.logradouro}
-                  onChange={handleAddressChange}
                   placeholder="Digite o logradouro"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, logradouro: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -276,12 +252,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="numero"
-                  name="numero"
                   type="text"
                   value={dadosPaciente.endereco.numero}
-                  onChange={handleAddressChange}
                   placeholder="Digite o número"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, numero: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -291,12 +269,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="complemento"
-                  name="complemento"
                   type="text"
                   value={dadosPaciente.endereco.complemento}
-                  onChange={handleAddressChange}
                   placeholder="Digite o complemento"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, complemento: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -306,12 +286,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="cidade"
-                  name="cidade"
                   type="text"
                   value={dadosPaciente.endereco.cidade}
-                  onChange={handleAddressChange}
                   placeholder="Digite a cidade"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, cidade: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -321,12 +303,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="uf"
-                  name="uf"
                   type="text"
                   value={dadosPaciente.endereco.uf}
-                  onChange={handleAddressChange}
                   placeholder="Digite a UF"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, uf: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -336,12 +320,14 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="cep"
-                  name="cep"
                   type="text"
                   value={dadosPaciente.endereco.cep}
-                  onChange={handleAddressChange}
                   placeholder="Digite o CEP"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({
+                    ...dadosPaciente,
+                    endereco: { ...dadosPaciente.endereco, cep: e.target.value }
+                  })}
                 />
                 <Icon><FaHome /></Icon>
               </div>
@@ -354,12 +340,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="email"
-                  name="email"
                   type="text"
                   value={dadosPaciente.email}
-                  onChange={handleInputChange}
                   placeholder="Insira seu email"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, email: e.target.value })}
                 />
                 <Icon><FaEnvelope /></Icon>
               </div>
@@ -369,12 +354,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="telefone"
-                  name="telefone"
                   type="text"
                   value={dadosPaciente.telefone}
-                  onChange={handleInputChange}
                   placeholder="(DDD) 00000.0000"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, telefone: e.target.value })}
                 />
                 <Icon><FaPhone /></Icon>
               </div>
@@ -384,12 +368,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="numeroCns"
-                  name="numeroCns"
                   type="text"
                   value={dadosPaciente.numeroCns}
-                  onChange={handleInputChange}
                   placeholder="Digite o número CNS"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, numeroCns: e.target.value })}
                 />
                 <Icon><FaIdCard /></Icon>
               </div>
@@ -399,12 +382,11 @@ const IniciarAtendimento = () => {
               <div style={{ position: 'relative' }}>
                 <Input
                   id="dataCadastro"
-                  name="dataCadastro"
                   type="text"
                   value={dadosPaciente.dataCadastro}
-                  onChange={handleInputChange}
                   placeholder="Digite a data de cadastro"
                   disabled={!isBuscaFeita}
+                  onChange={(e) => setDadosPaciente({ ...dadosPaciente, dataCadastro: e.target.value })}
                 />
                 <Icon><FaCalendar /></Icon>
               </div>

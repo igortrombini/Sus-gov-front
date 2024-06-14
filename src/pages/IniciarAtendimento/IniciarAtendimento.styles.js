@@ -94,6 +94,7 @@ export const Button = styled.button`
   justify-content: center;
   font-size: 1.5rem;
   height: 100%;
+  outline: none; /* Remove o foco */
 `;
 
 export const Icon = styled.div`
@@ -156,6 +157,7 @@ export const ActionButton = styled.button`
   font-size: 1rem;
   border-radius: 2rem;
   margin: 0 0.5rem;
+  outline: none; /* Remove o foco */
   &:hover {
     background-color: #0056b3;
   }
@@ -173,6 +175,7 @@ export const ButtonCancel = styled.button`
   font-size: 1rem;
   border-radius: 2rem;
   margin: 0 0.5rem;
+  outline: none; /* Remove o foco */
   &:hover {
     background-color: #e6f2ff;
   }

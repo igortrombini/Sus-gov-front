@@ -32,29 +32,40 @@ export const Section = styled.section`
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  margin-top: 2rem;
 `;
 
 export const Thead = styled.thead`
   background-color: #f8f9fa;
 `;
 
-export const Tbody = styled.tbody``;
-
-export const Th = styled.th`
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-  font-weight: bold;
-`;
-
-export const Tr = styled.tr`
-  &:nth-child(even) {
-    background-color: #f8f9fa;
+export const Tbody = styled.tbody`
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
   }
 `;
 
+export const Th = styled.th`
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid #dee2e6;
+`;
+
+export const Tr = styled.tr``;
+
 export const Td = styled.td`
-  padding: 1rem;
+  padding: 0.75rem;
+  text-align: left;
   border-bottom: 1px solid #dee2e6;
+`;
+
+export const Button = styled.button`
+  background-color: #0A3D62;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  &:hover {
+    background-color: #083358;
+  }
 `;
