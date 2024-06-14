@@ -3,9 +3,11 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import IniciarAtendimento from './pages/IniciarAtendimento/IniciarAtendimento';
 import FilaAtendimento from './pages/FilaAtendimento/FilaAtendimento';
+import { FilaProvider } from './context/FilaContext';
 
 const App = () => {
   return (
+    <FilaProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
@@ -14,6 +16,7 @@ const App = () => {
         <Route path="/fila-atendimento" element={<FilaAtendimento />} />
       </Routes>
     </Router>
+    </FilaProvider>
   );
 };
 

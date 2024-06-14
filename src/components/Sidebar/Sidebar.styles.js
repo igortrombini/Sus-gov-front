@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarContainer = styled.div`
-  width: 360px;
+  width: ${({ isOpen }) => (isOpen ? '360px' : '0')};
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -9,6 +9,33 @@ export const SidebarContainer = styled.div`
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: 'Rawline', sans-serif; /* Fonte do Design System */
+  transition: width 0.3s ease;
+  overflow: hidden; /* Oculta o conteúdo quando fechado */
+`;
+
+export const ToggleButton = styled.button`
+  position: fixed;
+  left: ${({ isOpen }) => (isOpen ? '300px' : '10px')}; /* Ajuste a posição do botão "X" (fechar) */
+  top: ${({ isOpen }) => (isOpen ? '1rem' : '15rem')}; /* Ajuste a posição do botão ">" (abrir) */
+  transition: left 0.3s ease, top 0.3s ease;
+  background-color: transparent; /* Remove a cor de fundo */
+  color: #000; /* Ajuste a cor do ícone para preto */
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem; /* Ajusta o tamanho do ícone */
+  user-select: none; /* Remove a seleção de texto */
+  outline: none; /* Remove o contorno padrão do foco */
+  -webkit-tap-highlight-color: transparent; /* Remove o destaque de toque no Safari e dispositivos móveis */
+
+  &:focus {
+    outline: none; /* Remove o contorno do foco */
+    box-shadow: none; /* Remove a sombra do foco */
+  }
 `;
 
 export const UserProfile = styled.div`
@@ -44,6 +71,13 @@ export const UserProfile = styled.div`
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
+    user-select: none; /* Remove a seleção de texto */
+    outline: none; /* Remove o contorno do foco */
+
+    &:focus {
+      outline: none; /* Remove o contorno do foco */
+      box-shadow: none; /* Remove a sombra do foco */
+    }
   }
   i {
     margin-right: 0.25rem; /* Espaço entre o ícone e o texto */
@@ -68,6 +102,7 @@ export const NavItem = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid #e9ecef; /* Linha inferior */
   transition: background-color 0.3s, color 0.3s;
+  user-select: none; /* Remove a seleção de texto */
 
   &:hover {
     background-color: #0A3D62; /* Cor de fundo ao passar o mouse */
@@ -91,6 +126,13 @@ export const Logo = styled.div`
   padding: 0 1rem;
   img {
     width: 150px;
+    user-select: none; /* Remove a seleção de texto */
+    outline: none; /* Remove o contorno do foco */
+
+    &:focus {
+      outline: none; /* Remove o contorno do foco */
+      box-shadow: none; /* Remove a sombra do foco */
+    }
   }
 `;
 
@@ -102,4 +144,11 @@ export const Footer = styled.div`
   color: #000000; /* Ajuste da cor do texto */
   border-top: 1px solid #e9ecef;
   background-color: #ffffff; /* Ajuste da cor de fundo */
+  user-select: none; /* Remove a seleção de texto */
+  outline: none; /* Remove o contorno do foco */
+
+  &:focus {
+    outline: none; /* Remove o contorno do foco */
+    box-shadow: none; /* Remove a sombra do foco */
+  }
 `;
