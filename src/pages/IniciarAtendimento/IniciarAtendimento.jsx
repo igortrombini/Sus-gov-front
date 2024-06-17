@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { FaSearch, FaUser, FaCalendar, FaIdCard, FaEnvelope, FaPhone, FaHome, FaPrint } from 'react-icons/fa';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
-import { FilaContext } from '../../context/FilaContext';
+import { FilaContext } from '../../context/FilaContext'; // Certifique-se de que está usando o FilaContext corretamente
 import {
   Container,
   MainContent,
@@ -22,7 +22,7 @@ import {
 } from './IniciarAtendimento.styles';
 
 const IniciarAtendimento = () => {
-  const { adicionarPaciente, gerarProximaSenha } = useContext(FilaContext);
+  const { adicionarPaciente, gerarProximaSenha } = useContext(FilaContext); // Certifique-se de que está usando o FilaContext corretamente
   const [dadosPaciente, setDadosPaciente] = useState({
     nomeCompleto: '',
     cpf: '',
@@ -145,7 +145,7 @@ const IniciarAtendimento = () => {
               </div>
             </InputWrapper>
             <InputWrapper>
-              <Label htmlFor="rg">RG</Label>
+              <Label htmlFor="rg">RG</Label> {/* Corrigido */}
               <div style={{ position: 'relative' }}>
                 <Input
                   id="rg"

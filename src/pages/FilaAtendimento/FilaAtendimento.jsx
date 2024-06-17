@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
+import { AuthContext } from '../../context/AuthContext';
 import {
   Container,
   MainContent,
@@ -18,7 +20,9 @@ import { FilaContext } from '../../context/FilaContext';
 
 const FilaAtendimento = () => {
   const { fila, atualizarStatusPaciente } = useContext(FilaContext);
+  const { user } = useContext(AuthContext);
   const [tempoFila, setTempoFila] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,8 +34,8 @@ const FilaAtendimento = () => {
         const segundos = tempoEspera % 60;
         novosTempos[paciente.senha] = `${horas}h ${minutos}m ${segundos}s`;
 
-        if (tempoEspera > 1200 && paciente.status === 'Aguardando atendimento') { // 20 minutos = 1200 segundos
-          atualizarStatusPaciente(paciente.senha, 'Em atendimento');
+        if (tempoEspera > 1200 && paciente.status === 'Aguardando Triagem') {
+          atualizarStatusPaciente(paciente.senha, 'Em Triagem');
         }
       });
       setTempoFila(novosTempos);
@@ -40,8 +44,8 @@ const FilaAtendimento = () => {
     return () => clearInterval(interval);
   }, [fila, atualizarStatusPaciente]);
 
-  const handleIniciarAtendimento = (senha) => {
-    atualizarStatusPaciente(senha, 'Em atendimento');
+  const handleIniciarTriagem = (paciente) => {
+    navigate(`/triagem/${paciente.senha}`, { state: { paciente } });
   };
 
   return (
@@ -75,9 +79,14 @@ const FilaAtendimento = () => {
                   <Td>Enfermeira</Td>
                   <Td>{paciente.status}</Td>
                   <Td>
-                    {paciente.status === 'Aguardando atendimento' && (
-                      <Button onClick={() => handleIniciarAtendimento(paciente.senha)}>
-                        Iniciar Atendimento
+                    {user.userType === 'enfermagem' && paciente.status === 'Aguardando Triagem' && (
+                      <Button onClick={() => handleIniciarTriagem(paciente)}>
+                        Fazer Triagem
+                      </Button>
+                    )}
+                    {user.userType === 'recepcao' && paciente.status === 'Aguardando Triagem' && (
+                      <Button disabled>
+                        Fazer Triagem
                       </Button>
                     )}
                   </Td>

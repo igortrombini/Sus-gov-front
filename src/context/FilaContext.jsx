@@ -1,13 +1,13 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-export const FilaContext = createContext();
+const FilaContext = createContext();
 
 export const FilaProvider = ({ children }) => {
   const [fila, setFila] = useState([]);
   const [ultimaSenha, setUltimaSenha] = useState('A0000');
 
   const adicionarPaciente = (paciente) => {
-    setFila([...fila, { ...paciente, status: 'Aguardando atendimento' }]);
+    setFila([...fila, { ...paciente, status: 'Aguardando Triagem' }]);
   };
 
   const gerarProximaSenha = () => {
@@ -17,10 +17,8 @@ export const FilaProvider = ({ children }) => {
     return novaSenha;
   };
 
-  const atualizarStatusPaciente = (senha, novoStatus) => {
-    setFila(fila.map(paciente => (
-      paciente.senha === senha ? { ...paciente, status: novoStatus } : paciente
-    )));
+  const atualizarStatusPaciente = (senha, status) => {
+    setFila(fila.map(paciente => (paciente.senha === senha ? { ...paciente, status } : paciente)));
   };
 
   return (
@@ -29,3 +27,7 @@ export const FilaProvider = ({ children }) => {
     </FilaContext.Provider>
   );
 };
+
+export const useFila = () => useContext(FilaContext);
+
+export { FilaContext };

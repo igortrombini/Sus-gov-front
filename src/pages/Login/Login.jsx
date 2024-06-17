@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   LeftPanel,
@@ -13,9 +15,26 @@ import {
   StyledImage
 } from './Login.styles';
 import { FaUser, FaLock } from 'react-icons/fa';
-import ImageSrc from '../../assets/conta_govbr_v2.jpg'; // Certifique-se de que o caminho da imagem está correto
+import { useAuth } from '../../context/AuthContext';
+import ImageSrc from '../../assets/conta_govbr_v2.jpg';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const success = login(username, password);
+    if (success) {
+      navigate('/home');
+    } else {
+      setError('Usuário ou senha incorretos');
+    }
+  };
+
   return (
     <Container>
       <LeftPanel>
@@ -24,14 +43,26 @@ const Login = () => {
       <RightPanel>
         <LoginBox>
           <Title>Acesso ao Sistema</Title>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <InputWrapper className="br-input">
               <FaUser className="icon" />
-              <Input id="email" type="text" placeholder="Email" />
+              <Input
+                id="email"
+                type="text"
+                placeholder="Email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </InputWrapper>
             <InputWrapper className="br-input">
               <FaLock className="icon" />
-              <Input id="password" type="password" placeholder="Senha" />
+              <Input
+                id="password"
+                type="password"
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </InputWrapper>
             <ForgotPassword>
               <span>Digite sua senha de segurança</span>
@@ -41,7 +72,8 @@ const Login = () => {
               <input type="checkbox" id="rememberMe" />
               <label htmlFor="rememberMe">Manter-me conectado</label>
             </RememberMe>
-            <Button type="button" className="br-button primary">Entrar</Button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <Button type="submit" className="br-button primary">Entrar</Button>
           </Form>
         </LoginBox>
       </RightPanel>
