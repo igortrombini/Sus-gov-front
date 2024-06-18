@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Header from '../../components/Header/Header';
-import ClassificationSelect from './ClassificationSelect';
 import { FilaContext } from '../../context/FilaContext';
 import {
   Container,
@@ -23,9 +22,9 @@ import {
   Divider,
   DividerText,
   AlergiasWrapper
-} from './Triagem.styles';
+} from '../Triagem/Triagem.styles';
 
-const Triagem = () => {
+const AtendimentoMedico = () => {
   const location = useLocation();
   const { paciente } = location.state;
   const { atualizarStatusPaciente } = useContext(FilaContext);
@@ -40,10 +39,12 @@ const Triagem = () => {
     altura: paciente.altura || '',
     pressaoArterial: paciente.pressaoArterial || '',
     temperatura: paciente.temperatura || '',
-    saturacaoOxigenio: paciente.saturacaoOxigenio || ''
+    saturacaoOxigenio: paciente.saturacaoOxigenio || '',
+    prontuario: paciente.prontuario || ''
   });
 
   useEffect(() => {
+    // Atualiza o estado inicial dos dados do paciente
     setDadosPaciente(prevState => ({
       ...prevState,
       ...paciente,
@@ -55,48 +56,24 @@ const Triagem = () => {
       altura: paciente.altura || '',
       pressaoArterial: paciente.pressaoArterial || '',
       temperatura: paciente.temperatura || '',
-      saturacaoOxigenio: paciente.saturacaoOxigenio || ''
+      saturacaoOxigenio: paciente.saturacaoOxigenio || '',
+      prontuario: paciente.prontuario || ''
     }));
   }, [paciente]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setDadosPaciente((prevState) => {
-      console.log('Previous State:', prevState);
-      console.log('Updating:', { [name]: type === 'checkbox' ? checked : value });
-      return {
-        ...prevState,
-        [name]: type === 'checkbox' ? checked : value
-      };
-    });
-  };
-
-  const handleClassificationChange = (selectedOption) => {
-    setDadosPaciente((prevState) => {
-      console.log('Updating classificacao:', selectedOption.value);
-      return {
-        ...prevState,
-        classificacao: selectedOption.value
-      };
-    });
-  };
-
-  const handleAlergiaChange = (e) => {
-    const { value } = e.target;
-    setDadosPaciente((prevState) => {
-      console.log('Updating temAlergias:', value === 'true');
-      return {
-        ...prevState,
-        temAlergias: value === 'true'
-      };
+    setDadosPaciente({
+      ...dadosPaciente,
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Final dadosPaciente state on submit:', dadosPaciente);
-    atualizarStatusPaciente(dadosPaciente.senha, 'Aguardando Atendimento Médico', dadosPaciente);
-    alert('Triagem salva com sucesso!');
+    atualizarStatusPaciente(dadosPaciente.senha, 'Atendimento Médico Concluído', dadosPaciente);
+    alert('Atendimento salvo com sucesso!');
   };
 
   return (
@@ -105,7 +82,7 @@ const Triagem = () => {
       <MainContent>
         <Header />
         <Section>
-          <h2>Triagem</h2>
+          <h2>Atendimento Médico</h2>
           <Form onSubmit={handleSubmit}>
             <InputWrapper>
               <Label htmlFor="nomeCompleto">Nome Completo</Label>
@@ -245,6 +222,7 @@ const Triagem = () => {
                 value={dadosPaciente.sintomas}
                 onChange={handleChange}
                 placeholder="Descreva os sintomas"
+                disabled
               />
             </InputWrapper>
             <AlergiasWrapper>
@@ -256,7 +234,8 @@ const Triagem = () => {
                     name="temAlergias"
                     value="true"
                     checked={dadosPaciente.temAlergias === true}
-                    onChange={handleAlergiaChange}
+                    onChange={handleChange}
+                    disabled
                   />
                   Sim
                 </label>
@@ -266,7 +245,8 @@ const Triagem = () => {
                     name="temAlergias"
                     value="false"
                     checked={dadosPaciente.temAlergias === false}
-                    onChange={handleAlergiaChange}
+                    onChange={handleChange}
+                    disabled
                   />
                   Não
                 </label>
@@ -278,6 +258,7 @@ const Triagem = () => {
                     value={dadosPaciente.alergias}
                     onChange={handleChange}
                     placeholder="Descreva as alergias"
+                    disabled
                   />
                 </InputWrapper>
               )}
@@ -337,8 +318,15 @@ const Triagem = () => {
                 placeholder="Digite a saturação de oxigênio"
               />
             </InputWrapper>
-            <InputWrapper>
-              <ClassificationSelect onChange={handleClassificationChange} />
+            <InputWrapper style={{ gridColumn: 'span 2' }}>
+              <Label htmlFor="prontuario">Prontuário</Label>
+              <TextAreaSintomas
+                id="prontuario"
+                name="prontuario"
+                value={dadosPaciente.prontuario}
+                onChange={handleChange}
+                placeholder="Descreva o prontuário"
+              />
             </InputWrapper>
             <ActionButtonGroup>
               <ActionButton type="submit">Salvar</ActionButton>
@@ -351,4 +339,4 @@ const Triagem = () => {
   );
 };
 
-export default Triagem;
+export default AtendimentoMedico;

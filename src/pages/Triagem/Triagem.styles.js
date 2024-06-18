@@ -57,8 +57,9 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 0.5rem;
+  padding: 8px; /* Adicionado */
   align-items: flex-start;
+  width: 100%; /* Adicionado */
   label {
     margin-bottom: 0.5rem;
     text-align: left;
@@ -79,7 +80,6 @@ export const Input = styled.input`
   border: 1px solid #e2e8f0;
   border-radius: 0.25rem;
   font-size: 1rem;
-  padding-right: 25rem;
   width: 100%;
 `;
 
@@ -90,6 +90,17 @@ export const TextArea = styled.textarea`
   font-size: 1rem;
   width: 100%;
   height: 5rem;
+  resize: none; /* Desabilita o redimensionamento */
+`;
+
+export const TextAreaSintomas = styled.textarea`
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  width: 100%;
+  height: 10rem; /* Altura diferente para sintomas */
+  resize: none; /* Desabilita o redimensionamento */
 `;
 
 export const Button = styled.button`
@@ -104,15 +115,6 @@ export const Button = styled.button`
   font-size: 1.5rem;
   height: 100%;
   outline: none; /* Remove o foco */
-`;
-
-export const Icon = styled.div`
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #a0aec0;
-  pointer-events: none;
 `;
 
 export const Label = styled.label`
@@ -191,18 +193,19 @@ export const ButtonCancel = styled.button`
 `;
 
 export const Divider = styled.div`
-    font-size: 1.2rem;
-    background-color: #f8f9fa;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    position: relative;
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
-    padding-left: 2rem;
-    box-sizing: border-box;
+  grid-column: span 2;
+  font-size: 1.2rem;
+  background-color: #f8f9fa;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  width: calc(100% + 4rem);
+  margin-left: -2rem;
+  padding-left: 2rem;
+  box-sizing: border-box;
 `;
 
 export const DividerText = styled.div`
@@ -210,4 +213,22 @@ export const DividerText = styled.div`
   padding: 0 1rem;
   font-weight: bold;
   color: ${primaryColor};
+  position: absolute;
+`;
+
+export const AlergiasWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  padding: 8px; /* Adicionado */
+  label {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
 `;

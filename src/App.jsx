@@ -5,6 +5,7 @@ import IniciarAtendimento from './pages/IniciarAtendimento/IniciarAtendimento';
 import FilaAtendimento from './pages/FilaAtendimento/FilaAtendimento';
 import Login from './pages/Login/Login';
 import Triagem from './pages/Triagem/Triagem';
+import AtendimentoMedico from './pages/AtendimentoMedico/AtendimentoMedico'; // Importe a nova página
 import { AuthProvider } from './context/AuthContext';
 import { FilaProvider } from './context/FilaContext';
 import ProtectedRoute from './context/ProtectedRoute';
@@ -19,7 +20,7 @@ function App() {
             <Route
               path="/home"
               element={
-                <ProtectedRoute allowedRoles={['recepcao', 'enfermagem']}>
+                <ProtectedRoute allowedRoles={['recepcao', 'enfermagem', 'medico']}>
                   <Home />
                 </ProtectedRoute>
               }
@@ -35,7 +36,7 @@ function App() {
             <Route
               path="/fila-atendimento"
               element={
-                <ProtectedRoute allowedRoles={['recepcao', 'enfermagem']}>
+                <ProtectedRoute allowedRoles={['recepcao', 'enfermagem', 'medico']}>
                   <FilaAtendimento />
                 </ProtectedRoute>
               }
@@ -45,6 +46,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={['enfermagem']}>
                   <Triagem />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/atendimento-medico/:senha"
+              element={
+                <ProtectedRoute allowedRoles={['medico']}>
+                  <AtendimentoMedico />
                 </ProtectedRoute>
               }
             />

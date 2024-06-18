@@ -69,3 +69,10 @@ export const Button = styled.button`
     background-color: #083358;
   }
 `;
+
+export const ClassificacaoDot = styled.div`
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: ${({ classificacao }) => classificacao};
+`;

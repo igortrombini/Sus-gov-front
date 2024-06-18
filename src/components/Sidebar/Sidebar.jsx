@@ -40,6 +40,19 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  const getUserTypeLabel = () => {
+    switch (user.userType) {
+      case 'recepcao':
+        return 'Recepção';
+      case 'enfermagem':
+        return 'Enfermagem';
+      case 'medico':
+        return 'Médico';
+      default:
+        return '';
+    }
+  };
+
   return (
     <>
       <ToggleButton isOpen={isOpen} onClick={toggleSidebar}>
@@ -71,7 +84,7 @@ const Sidebar = () => {
           <img src={profileImg} alt="User" />
           <div>
             <p>{user ? user.username : 'Usuário'}</p>
-            <span>{user ? user.userType === 'recepcao' ? 'Recepção' : 'Enfermagem' : ''}</span>
+            <span>{user ? getUserTypeLabel() : ''}</span>
             <a href="#" onClick={logout}>
               <i className="fas fa-sign-out-alt"></i> Sair
             </a>

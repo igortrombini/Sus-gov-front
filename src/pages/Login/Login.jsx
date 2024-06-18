@@ -22,6 +22,8 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -45,23 +47,31 @@ const Login = () => {
           <Title>Acesso ao Sistema</Title>
           <Form onSubmit={handleSubmit}>
             <InputWrapper className="br-input">
-              <FaUser className="icon" />
+              {!isUsernameFocused && <FaUser className="icon" />}
               <Input
                 id="email"
                 type="text"
                 placeholder="Email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onFocus={() => setIsUsernameFocused(true)}
+                onBlur={() => setIsUsernameFocused(false)}
+                // Adicione estilo inline ou classe CSS para ajustar a posição do ícone
+                style={{ paddingLeft: isUsernameFocused ? '8px' : '2.5rem' }} // Ajuste o paddingLeft quando o campo é focado ou não
               />
             </InputWrapper>
             <InputWrapper className="br-input">
-              <FaLock className="icon" />
+              {!isPasswordFocused && <FaLock className="icon" />}
               <Input
                 id="password"
                 type="password"
                 placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setIsPasswordFocused(true)}
+                onBlur={() => setIsPasswordFocused(false)}
+                // Adicione estilo inline ou classe CSS para ajustar a posição do ícone
+                style={{ paddingLeft: isPasswordFocused ? '8px' : '2.5rem' }} // Ajuste o paddingLeft quando o campo é focado ou não
               />
             </InputWrapper>
             <ForgotPassword>

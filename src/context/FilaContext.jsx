@@ -2,12 +2,16 @@ import React, { createContext, useState, useContext } from 'react';
 
 const FilaContext = createContext();
 
-export const FilaProvider = ({ children }) => {
+const FilaProvider = ({ children }) => {
   const [fila, setFila] = useState([]);
   const [ultimaSenha, setUltimaSenha] = useState('A0000');
 
   const adicionarPaciente = (paciente) => {
-    setFila([...fila, { ...paciente, status: 'Aguardando Triagem' }]);
+    setFila((prevFila) => {
+      const updatedFila = [...prevFila, { ...paciente, status: 'Aguardando Triagem', tempoAtendimento: null }];
+      console.log('Updated Fila after adicionarPaciente:', updatedFila);
+      return updatedFila;
+    });
   };
 
   const gerarProximaSenha = () => {
@@ -17,8 +21,16 @@ export const FilaProvider = ({ children }) => {
     return novaSenha;
   };
 
-  const atualizarStatusPaciente = (senha, status) => {
-    setFila(fila.map(paciente => (paciente.senha === senha ? { ...paciente, status } : paciente)));
+  const atualizarStatusPaciente = (senha, status, dadosAtualizados) => {
+    setFila((prevFila) => {
+      const updatedFila = prevFila.map(paciente => 
+        paciente.senha === senha 
+          ? { ...paciente, ...dadosAtualizados, status, tempoAtendimento: status === 'Atendimento Médico Concluído' ? new Date() : paciente.tempoAtendimento } 
+          : paciente
+      );
+      console.log('Updated Fila after atualizarStatusPaciente:', updatedFila);
+      return updatedFila;
+    });
   };
 
   return (
@@ -30,4 +42,4 @@ export const FilaProvider = ({ children }) => {
 
 export const useFila = () => useContext(FilaContext);
 
-export { FilaContext };
+export { FilaContext, FilaProvider };
